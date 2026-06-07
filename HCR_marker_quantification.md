@@ -21,7 +21,7 @@ Step7. Process the registered HCR images for MAPMap analysis using a fiji macro 
 
 Step8. chunk file construction <br>
 The MAPMap analysis performs pairwise comparisons for all pairs of 293 HCR markers. In total, there are 42,778 pairs and comparison all pairs in one process is not possible.</br>
-For computational efficiency, these pairs need to be partitioned into chuck files. To do that, an empty folder for each HCR gene is created under a parent folder 'HCR_temp/MAPmap_input/` in local computer using `EmptyFolder_v1.ipynb`.</br>
+For computational efficiency, these pairs need to be partitioned into chuck files. To do that, an empty folder for each HCR gene is created under a parent folder `HCR_temp/MAPmap_input/` in local computer using `EmptyFolder_v1.ipynb`.</br>
 
 
 Run MAPmap with chunk file on Wynton</br>
