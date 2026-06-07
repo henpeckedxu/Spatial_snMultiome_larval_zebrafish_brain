@@ -1,20 +1,23 @@
-Step1. Download all HCR orignal images from MapZbrain database using `HCR_download_v1.ipynb` with a json file;
+Step1. Download all HCR original images from MapZbrain database using `HCR_download_v1.ipynb` with a json file `markers_catalog.json`;
 
-Transfer reformed MapZbrain (mzb) HCR images from local computer to wynton</br>
-Due to the limited space on Wynton, I always transfer a subset for registration
+Step2. Reform the HCR original images by running a fiji macro `Preprocess_mzb_v2.ijm`;
+
+Step3. Transfer reformed MapZbrain (mzb) HCR images from local computer to wynton. Due to the limited space on Wynton, I always transfer a subset for registration
 ```
 scp HCR_temp/HCR_mzb_reform/mzb_[Cc]*.nii henpeckedxu@dt2.wynton.ucsf.edu:~/LD_NeuralNetwork/experiments/antsRegistration/HCR/HCR_mzb_reform/
 ```
-Register mzb HCR images to zbrain template</br>
-Using the bash loop below, all files under this folder were processed in parallele</br>
+Step4. Register mzb HCR images to zbrain template using the bash loop below. All files under the folder were processed in parallele</br>
 ```
 for file in ~/LD_NeuralNetwork/experiments/antsRegistration/HCR/HCR_mzb_reform/*;do name="${file##*/}"; base="${name%.*}"; qsub HCR_mzb2zb_v1.sh ~/LD_NeuralNetwork/experiments/antsRegistration/HCR/ref Zbrain_Elavl3-H2BRFP.nii "$base"; done
 ```
-Dowload the registered image to local computer folder `HCR_temp/HCR_mzb2zb`
+Step5. Dowload the registered image to local computer folder `HCR_temp/HCR_mzb2zb`
 ```
 cd HCR_temp/HCR_mzb2zb
 scp 'henpeckedxu@dt2.wynton.ucsf.edu:~/LD_NeuralNetwork/experiments/antsRegistration/HCR/ref/*toZbrain*' .
 ```
+Step6. change the registered HCR images from 32bit to 16bit and stored in folder `HCR/HCR_mzb2zb_downsample/input/`
+
+Step7. Process the registered HCR images for MAPMap analysis using a fiji macro `PrepareStacksForMAPMapping.ijm`. The results are stored in 
 
 
 Run MAPmap with chunk file on Wynton</br>
