@@ -25,7 +25,7 @@ Step6. Remove all the output files from Step3-4 on wynton
 ```
 rm ~/LD_NeuralNetwork/experiments/antsRegistration/HCR/HCR_mzb_reform/*
 rm ~/LD_NeuralNetwork/experiments/antsRegistration/HCR/HCR_mzb2zb/*
-
+```
 Step6. Change the registered HCR images from 32bit to 16bit and stored in folder `HCR/HCR_mzb2zb_downsample/input/`
 
 Step7. Process the registered HCR images for MAPMap analysis using a fiji macro `PrepareStacksForMAPMapping.ijm`. The results are stored in `HCR/HCR_mzb2zb_downsample/output/`
