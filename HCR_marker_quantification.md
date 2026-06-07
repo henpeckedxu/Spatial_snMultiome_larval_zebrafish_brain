@@ -19,8 +19,21 @@ Step6. Change the registered HCR images from 32bit to 16bit and stored in folder
 
 Step7. Process the registered HCR images for MAPMap analysis using a fiji macro `PrepareStacksForMAPMapping.ijm`. The results are stored in `HCR/HCR_mzb2zb_downsample/output/`
 
-Step8. chunk file construction <br>
-The MAPMap analysis performs pairwise comparisons for all pairs of 293 HCR markers. In total, there are 42,778 pairs and comparison all pairs in one process is not possible. For computational efficiency, these pairs need to be partitioned into chuck files. To do that, an empty folder for each HCR gene is created under a parent folder `HCR_temp/MAPmap_input/` in local computer using `EmptyFolder_v1.ipynb`.</br>
+**Chunk file construction** <br>
+The MAPMap analysis performs pairwise comparisons for all pairs of 293 HCR markers. In total, there are 42,778 pairs and comparison all pairs in one process is not possible. For computational efficiency, these pairs need to be partitioned into chuck files. 
+
+Step1. Make an empty folder for each HCR gene under a parent folder `HCR_temp/MAPmap_input/` in local computer using `EmptyFolder_v1.ipynb`.</br>
+
+Step2. Transfer the entire folder to Wynton
+```
+scp -r HCR_temp/MAPmap_input/ henpeckedxu@dt2.wynton.ucsf.edu:~/LD_NeuralNetwork/experiments/MAPmap/
+```
+Step3. Make chunk files on Wynton
+```
+module load matalb
+matlab -batch "make_chunks_v1('/wynton/home/guolab/henpeckedxu/LD_NeuralNetwork/experiments/MAPmap/MAPmap_input/','/wynton/home/guolab/henpeckedxu/LD_NeuralNetwork/experiments/MAPmap/chunks/',500)"
+```
+Step4. Download the resulted folder `chunks` to local computer as `HCR_temp/chunks/`
 
 
 Run MAPmap with chunk file on Wynton</br>
