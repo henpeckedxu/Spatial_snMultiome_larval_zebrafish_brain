@@ -24,7 +24,7 @@ scp 'henpeckedxu@dt2.wynton.ucsf.edu:~/LD_NeuralNetwork/experiments/antsRegistra
 Step6. Remove all the output files from Step3-4 on wynton
 ```
 rm ~/LD_NeuralNetwork/experiments/antsRegistration/HCR/HCR_mzb_reform/*
-rm 
+rm ~/LD_NeuralNetwork/experiments/antsRegistration/HCR/HCR_mzb2zb/*
 
 Step6. Change the registered HCR images from 32bit to 16bit and stored in folder `HCR/HCR_mzb2zb_downsample/input/`
 
