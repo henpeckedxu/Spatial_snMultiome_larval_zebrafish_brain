@@ -1,3 +1,9 @@
+**Transform MapZbrain (mzb) space to Zbrain (zb) space**</br>
+All HCR images were made with MapZbrain template. For MAPmap analysis, these images needs to be transformed to Zbrain space;</br> 
+We performed the transformation with two parts:</br>
+1). download a template of a same transgenic line Huc-H2BGCAMP from both database and register the mzb template to zb template.</br>
+2). the registration generates transformation matrics that is then applied to HCR marker images for transformation with following steps:</br>
+
 Step1. Download all HCR original images from MapZbrain database using `HCR_download_v1.ipynb` with a json file `markers_catalog.json`;
 
 Step2. Reform the HCR original images by running a fiji macro `Preprocess_mzb_v2.ijm`;
