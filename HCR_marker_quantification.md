@@ -8,13 +8,18 @@ scp HCR_temp/HCR_mzb_reform/mzb_[Cc]*.nii henpeckedxu@dt2.wynton.ucsf.edu:~/LD_N
 ```
 Step4. Register mzb HCR images to zbrain template using the bash loop below. All files under the folder were processed in parallele</br>
 ```
-for file in ~/LD_NeuralNetwork/experiments/antsRegistration/HCR/HCR_mzb_reform/*;do name="${file##*/}"; base="${name%.*}"; qsub HCR_mzb2zb_v1.sh ~/LD_NeuralNetwork/experiments/antsRegistration/HCR/ref Zbrain_Elavl3-H2BRFP.nii "$base"; done
+for file in ~/LD_NeuralNetwork/experiments/antsRegistration/HCR/HCR_mzb_reform/*;do name="${file##*/}"; base="${name%.*}"; qsub ~/LD_NeuralNetwork/bin/HCR_mzb2zb_v1.sh ~/LD_NeuralNetwork/experiments/antsRegistration/HCR/ref Zbrain_Elavl3-H2BRFP.nii "$base"; done
 ```
 Step5. Dowload the registered image to local computer folder `HCR_temp/HCR_mzb2zb`
 ```
 cd HCR_temp/HCR_mzb2zb
 scp 'henpeckedxu@dt2.wynton.ucsf.edu:~/LD_NeuralNetwork/experiments/antsRegistration/HCR/ref/*toZbrain*' .
 ```
+Step6. Remove all the output files from Step3-4 on wynton
+```
+rm ~/LD_NeuralNetwork/experiments/antsRegistration/HCR/HCR_mzb_reform/*
+rm 
+
 Step6. Change the registered HCR images from 32bit to 16bit and stored in folder `HCR/HCR_mzb2zb_downsample/input/`
 
 Step7. Process the registered HCR images for MAPMap analysis using a fiji macro `PrepareStacksForMAPMapping.ijm`. The results are stored in `HCR/HCR_mzb2zb_downsample/output/`
