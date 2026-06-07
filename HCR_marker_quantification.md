@@ -19,7 +19,7 @@ for file in ~/LD_NeuralNetwork/experiments/antsRegistration/HCR/HCR_mzb_reform/*
 Step5. Dowload the registered image to local computer folder `HCR_temp/HCR_mzb2zb`
 ```
 cd HCR_temp/HCR_mzb2zb
-scp 'henpeckedxu@dt2.wynton.ucsf.edu:~/LD_NeuralNetwork/experiments/antsRegistration/HCR/ref/*toZbrain*' .
+scp 'henpeckedxu@dt2.wynton.ucsf.edu:~/LD_NeuralNetwork/experiments/antsRegistration/HCR/HCR_mzb2zb/*toZbrain*' .
 ```
 Step6. Remove all the output files from Step3-4 on wynton
 ```
