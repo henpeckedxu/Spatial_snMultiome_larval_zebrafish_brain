@@ -62,7 +62,7 @@ qsub MAPmap_analysis_v1.sh chunk_001.mat
 ```
 or 
 ```
-for i in {30..50}; do echo qsub MAPmap_analysis_v1.sh chunk_$(printf "%03d" "$i").mat; done
+for i in {30..50}; do qsub MAPmap_analysis_v1.sh chunk_$(printf "%03d" "$i").mat; done
 ```
 
 Step2. In the output folder, check if the number of files with name containing *SignificantDeltaMedians* equal to the double of the pairs in the corresponding chunk using `HCR_temp/chunks/all_chunk_pairs.pkl`</br>
