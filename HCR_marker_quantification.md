@@ -46,7 +46,10 @@ Step3. Make chunk files on Wynton
 module load matlab
 matlab -batch "make_chunks_v1('/wynton/home/guolab/henpeckedxu/LD_NeuralNetwork/experiments/MAPmap/MAPmap_input/','/wynton/home/guolab/henpeckedxu/LD_NeuralNetwork/experiments/MAPmap/chunks/',500)"
 ```
-Step4. Download the resulted folder `chunks` to local computer as `HCR_temp/chunks/`
+Step4. Download the resulted folder `chunks` to local computer as `HCR_temp/chunks/`</br>
+
+Step5. make a dataset with all pairs from all chunk using `chunk_info_v1.ipynb` and save the file as `HCR_temp/chunks/all_chunk_pairs.pkl`
+
 
 **MAPmap Analysis**
 
@@ -58,14 +61,30 @@ cd ~/LD_NeuralNetwork/bin
 ```bash
 qsub MAPmap_analysis_v1.sh chunk_001.mat
 ```
-Step2. Download the result folder `/LD_NeuralNetwork/experiments/MAPmap/output/chunk_001` to local computer `MAPmap_output/`</br>
 
-Step3. Save the folder to Box</br>
+Step2. In the output folder, check if the number of files with name containing *SignificantDeltaMedians* equal to the double of the pairs in the corresponding chunk using `HCR_temp/chunks/all_chunk_pairs.pkl`
+```
+find /wynton/home/guolab/henpeckedxu/LD_NeuralNetwork/experiments/MAPmap/output/chunk_00i/ -maxdepth 1 -type f  -name '*SignificantDeltaMedians*' | wc -l
+```
+
+Step3. On local computer, download the result folder `~/LD_NeuralNetwork/experiments/MAPmap/output/chunk_00i` to folder `MAPmap_output/`</br>
+```
+scp -r henpeckedxu@dt2.wynton.ucsf.edu:~/LD_NeuralNetwork/experiments/MAPmap/output/chunk_004 MAPmap_output
+```
+
+Step4. Save the folder to Box</br>
 
 ‼️ Make sure Step2 and Step3 have been completed before moving to next step
 
-Step4. On Wynton, remove all other files in the result folder except files with name containing SignificantDeltaMedians.</br>
-Step5. On Wynton, use the output from step2 to find anatomical regions with differential expression between HCR markers.</br>
+Step5. On Wynton, remove all other files in the result folder except files with name containing SignificantDeltaMedians.</br>
+```
+find /wynton/home/guolab/henpeckedxu/LD_NeuralNetwork/experiments/MAPmap/output/chunk_00i/ -maxdepth 1 -type f ! -name '*SignificantDeltaMedians*' -delete
+```
+
+Step6. On Wynton, use the output from step2 to find anatomical regions with differential expression between HCR markers.</br>
+```
+cd ~/LD_NeuralNetwork/bin
+```
 
 ```bash
 matlab -batch "ZBrainAnalysisOfMAPMaps_v1({'~/LD_NeuralNetwork/experiments/MAPmap/output/chunk_001/AL928650.3_over_ca8_SignificantDeltaMedians.tif'},1,0)"
