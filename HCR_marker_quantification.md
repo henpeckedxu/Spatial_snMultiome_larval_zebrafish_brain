@@ -28,9 +28,9 @@ rm ~/LD_NeuralNetwork/experiments/antsRegistration/HCR/HCR_mzb2zb/*
 ```
 
 
-Step6. Change the registered HCR images from 32bit to 16bit and stored in folder `HCR/HCR_mzb2zb_downsample/input/`
+Step7. Change the registered HCR images from 32bit to 16bit and stored in folder `HCR/HCR_mzb2zb_downsample/input/`
 
-Step7. Process the registered HCR images for MAPMap analysis using a fiji macro `PrepareStacksForMAPMapping.ijm`. The results are stored in `HCR/HCR_mzb2zb_downsample/output/`
+Step8. Process the registered HCR images for MAPMap analysis using a fiji macro `PrepareStacksForMAPMapping.ijm`. The results are stored in `HCR/HCR_mzb2zb_downsample/output/`
 
 **Chunk file construction** <br>
 The MAPMap analysis performs pairwise comparisons for all pairs of 293 HCR markers. In total, there are 42,778 pairs and comparison all pairs in one process is not possible. For computational efficiency, these pairs need to be partitioned into chuck files. 
@@ -43,13 +43,30 @@ scp -r HCR_temp/MAPmap_input/ henpeckedxu@dt2.wynton.ucsf.edu:~/LD_NeuralNetwork
 ```
 Step3. Make chunk files on Wynton
 ```
-module load matalb
+module load matlab
 matlab -batch "make_chunks_v1('/wynton/home/guolab/henpeckedxu/LD_NeuralNetwork/experiments/MAPmap/MAPmap_input/','/wynton/home/guolab/henpeckedxu/LD_NeuralNetwork/experiments/MAPmap/chunks/',500)"
 ```
 Step4. Download the resulted folder `chunks` to local computer as `HCR_temp/chunks/`
 
+**MAPmap Analysis**
 
-Run MAPmap with chunk file on Wynton</br>
+Step1. Run MAPmap with chunk file on Wynton</br>
+```
+cd ~/LD_NeuralNetwork/bin
+```
+
 ```bash
 qsub MAPmap_analysis_v1.sh chunk_001.mat
+```
+Step2. Download the result folder `/LD_NeuralNetwork/experiments/MAPmap/output/chunk_001` to local computer `MAPmap_output/`</br>
+
+Step3. Save the folder to Box</br>
+
+‼️ Make sure Step2 and Step3 have been completed before moving to next step
+
+Step4. On Wynton, remove all other files in the result folder except files with name containing SignificantDeltaMedians.</br>
+Step5. On Wynton, use the output from step2 to find anatomical regions with differential expression between HCR markers.</br>
+
+```bash
+matlab -batch "ZBrainAnalysisOfMAPMaps_v1({'~/LD_NeuralNetwork/experiments/MAPmap/output/chunk_001/AL928650.3_over_ca8_SignificantDeltaMedians.tif'},1,0)"
 ```
