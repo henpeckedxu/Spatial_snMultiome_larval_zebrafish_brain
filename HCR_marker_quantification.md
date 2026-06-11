@@ -1,4 +1,4 @@
-**Transform MapZbrain (mzb) space to Zbrain (zb) space**</br>
+## Transform MapZbrain (mzb) space to Zbrain (zb) space
 All HCR images were made with MapZbrain template. For MAPmap analysis, these images needs to be transformed to Zbrain space;</br> 
 We performed the transformation with two parts:</br>
 1). download a template of a same transgenic line Huc-H2BGCAMP from both database and register the mzb template to zb template.</br>
@@ -31,7 +31,7 @@ Step7. Change the registered HCR images from 32bit to 16bit and stored in folder
 
 Step8. Process the registered HCR images for MAPMap analysis using a fiji macro `PrepareStacksForMAPMapping.ijm`. The results are stored in `HCR/HCR_mzb2zb_downsample/output/`
 
-**Chunk file construction** <br>
+## Chunk file construction
 The MAPMap analysis performs pairwise comparisons for all pairs of 293 HCR markers. In total, there are 42,778 pairs and comparison all pairs in one process is not possible. For computational efficiency, these pairs need to be partitioned into chuck files. 
 
 Step1. Make an empty folder for each HCR gene under a parent folder `HCR_temp/MAPmap_input/` in local computer using `EmptyFolder_v1.ipynb`.</br>
@@ -50,7 +50,7 @@ Step4. Download the resulted folder `chunks` to local computer as `HCR_temp/chun
 Step5. make a dataset with all pairs from all chunk using `chunk_info_v1.ipynb` and save the file as `HCR_temp/chunks/all_chunk_pairs.pkl`
 
 
-**MAPmap Analysis**
+## MAPmap Analysis
 
 Step1. Run MAPmap with chunk file on Wynton</br>
 ```
@@ -88,10 +88,17 @@ for i in {6..10};do scp -r henpeckedxu@dt2.wynton.ucsf.edu:~/LD_NeuralNetwork/ex
 ‼️ Make sure Step2 and Step3 have been completed before moving to next step
 
 Step5. On Wynton, remove all other files in the result folder except files with name containing SignificantDeltaMedians.</br>
+
+for individual result folder:</br> 
 ```
 find /wynton/home/guolab/henpeckedxu/LD_NeuralNetwork/experiments/MAPmap/output/chunk_00i/ -maxdepth 1 -type f ! -name '*SignificantDeltaMedians*' -delete
 ```
+for a set of result folders:</br>
+```
+for i in {5..10}; do find /wynton/home/guolab/henpeckedxu/LD_NeuralNetwork/experiments/MAPmap/output/chunk_$(printf "%03d" "$i") -maxdepth 1 -type f  ! -name '*SignificantDeltaMedians*' -delete ; done
+```
 
+## Analysis at the level of anatomical region 
 Step6. On Wynton, use the output from step2 to find anatomical regions with differential expression between HCR markers.</br>
 ```
 cd ~/LD_NeuralNetwork/bin
