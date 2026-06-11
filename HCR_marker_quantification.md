@@ -61,6 +61,10 @@ cd ~/LD_NeuralNetwork/bin
 ```bash
 qsub MAPmap_analysis_v1.sh chunk_001.mat
 ```
+or 
+```
+for i in {30..50}; do echo qsub MAPmap_analysis_v1.sh chunk_$(printf "%03d" "$i").mat; done
+```
 
 Step2. In the output folder, check if the number of files with name containing *SignificantDeltaMedians* equal to the double of the pairs in the corresponding chunk using `HCR_temp/chunks/all_chunk_pairs.pkl`
 ```
@@ -73,6 +77,9 @@ scp -r henpeckedxu@dt2.wynton.ucsf.edu:~/LD_NeuralNetwork/experiments/MAPmap/out
 ```
 
 Step4. Save the folder to Box</br>
+```
+for i in {6..10};do scp -r henpeckedxu@dt2.wynton.ucsf.edu:~/LD_NeuralNetwork/experiments/MAPmap/output/chunk_$(printf "%03d" "$i") MAPmap_output; done
+```
 
 ‼️ Make sure Step2 and Step3 have been completed before moving to next step
 
