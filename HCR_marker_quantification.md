@@ -75,19 +75,14 @@ for a set of result folders:</br>
 for i in {5..10}; do echo chunk_$(printf "%03d" "$i"); find /wynton/home/guolab/henpeckedxu/LD_NeuralNetwork/experiments/MAPmap/output/chunk_$(printf "%03d" "$i") -maxdepth 1 -type f  -name '*SignificantDeltaMedians*' | wc -l ; done
 ```
 
-Step3. On local computer, download the result folder `~/LD_NeuralNetwork/experiments/MAPmap/output/chunk_00i` to folder `MAPmap_output/`</br>
+Step3. Save the folder to Box</br>
 ```
-scp -r henpeckedxu@dt2.wynton.ucsf.edu:~/LD_NeuralNetwork/experiments/MAPmap/output/chunk_004 MAPmap_output
-```
-
-Step4. Save the folder to Box</br>
-```
-for i in {6..10};do scp -r henpeckedxu@dt2.wynton.ucsf.edu:~/LD_NeuralNetwork/experiments/MAPmap/output/chunk_$(printf "%03d" "$i") MAPmap_output; done
+for i in {96..100}; do n=$(printf '%03d' "$i"); rclone copy "/wynton/home/guolab/henpeckedxu/LD_NeuralNetwork/experiments/MAPmap/output/chunk_${n}" "box:UCSF/Research/Project15LarvalZebrafishSource/MAPmap_output/chunk_${n}" --progress; done
 ```
 
 ‼️ Make sure Step2 and Step3 have been completed before moving to next step
 
-Step5. On Wynton, remove all other files in the result folder except files with name containing SignificantDeltaMedians.</br>
+Step4. On Wynton, remove all other files in the result folder except files with name containing SignificantDeltaMedians.</br>
 
 for individual result folder:</br> 
 ```
