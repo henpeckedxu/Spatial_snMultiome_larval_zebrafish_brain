@@ -101,9 +101,10 @@ for i in {5..10}; do find /wynton/home/guolab/henpeckedxu/LD_NeuralNetwork/exper
 ## Analysis at the level of anatomical region 
 Step6. On Wynton, use the output from step2 to find anatomical regions with differential expression between HCR markers.</br>
 ```
-cd ~/LD_NeuralNetwork/bin
+cd ~/LD_NeuralNetwork/bin/Z-Brain-master/
 ```
 
 ```bash
-matlab -batch "ZBrainAnalysisOfMAPMaps_v1({'~/LD_NeuralNetwork/experiments/MAPmap/output/chunk_001/AL928650.3_over_ca8_SignificantDeltaMedians.tif'},1,0)"
+for i in {12..20}; do qsub ZBrainAnalysisOfMAPMaps_v1.sh "$(printf '%03d' "$i")"; done
 ```
+
