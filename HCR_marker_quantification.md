@@ -100,6 +100,6 @@ cd ~/LD_NeuralNetwork/bin/Z-Brain-master/
 ```
 
 ```bash
-for i in {12..20}; do qsub ZBrainAnalysisOfMAPMaps_v1.sh "$(printf '%03d' "$i")"; done
+for i in {12..20}; do qsub ZBrainAnalysisOfMAPMaps_v2.sh "$(printf '%03d' "$i")"; done
 ```
 
