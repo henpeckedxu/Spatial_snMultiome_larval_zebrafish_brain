@@ -94,7 +94,7 @@ for i in {5..10}; do find /wynton/home/guolab/henpeckedxu/LD_NeuralNetwork/exper
 ```
 
 ## Analysis at the level of anatomical region 
-Step6. On Wynton, use the output from step2 to find anatomical regions with differential expression between HCR markers.</br>
+Step1. On Wynton, use the output from step2 to find anatomical regions with differential expression between HCR markers.</br>
 ```
 cd ~/LD_NeuralNetwork/bin/Z-Brain-master/
 ```
@@ -102,4 +102,7 @@ cd ~/LD_NeuralNetwork/bin/Z-Brain-master/
 ```bash
 for i in {12..20}; do qsub ZBrainAnalysisOfMAPMaps_v2.sh "$(printf '%03d' "$i")"; done
 ```
-
+Step2. Compress the results into a tar.gz file and transfer it to box
+```
+for i in {51..98}; do     n=$(printf '%03d' "$i");      echo "Processing chunk_${n}";      cd ~/LD_NeuralNetwork/experiments/MAPmap/output/chunk_${n} &&     tar -czf ../chunk_${n}.tar.gz ./*SignalResults.csv &&     rclone copy ../chunk_${n}.tar.gz         box:UCSF/Research/Project15LarvalZebrafishSource/BrainMaskAnalysis/         -P; done
+```
