@@ -14,7 +14,7 @@ scp HCR_temp/HCR_mzb_reform/mzb_[Cc]*.nii henpeckedxu@dt2.wynton.ucsf.edu:~/LD_N
 ```
 Step4. Register mzb HCR images to zbrain template using the bash loop below. All files under the folder were processed in parallel</br>
 ```
-for file in ~/LD_NeuralNetwork/experiments/antsRegistration/HCR/HCR_mzb_reform/*;do name="${file##*/}"; base="${name%.*}"; qsub ~/LD_NeuralNetwork/bin/HCR_mzb2zb_v1.sh ~/LD_NeuralNetwork/experiments/antsRegistration/HCR/ref Zbrain_Elavl3-H2BRFP.nii "$base"; done
+for file in ~/LD_NeuralNetwork/experiments/antsRegistration/HCR/HCR_mzb_reform/*;do name="${file##*/}"; base="${name%.*}"; qsub ~/LD_NeuralNetwork/bin/HCR_mzb2zb_v1.sh ~/LD_NeuralNetwork/experiments/antsRegistration/HCR/ref Zbrain_Elavl3-H2BRFP_matlab.nii "$base"; done
 ```
 Step5. Dowload the registered image to local computer folder `HCR_temp/HCR_mzb2zb`
 ```
